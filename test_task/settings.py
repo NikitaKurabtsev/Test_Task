@@ -34,6 +34,7 @@ AUTH_USER_MODEL = 'account.User'
 INSTALLED_APPS = [
     # My apps
     'account',
+    'users',
     
     'django_filters',
 
