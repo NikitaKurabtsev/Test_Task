@@ -1,7 +1,5 @@
 import django_filters
-from django.db.models import fields
 
-from .models import *
 from .models import User
 
 

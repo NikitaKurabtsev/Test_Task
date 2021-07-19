@@ -1,9 +1,7 @@
-import json
 
-import requests
+
 from django.shortcuts import render
 
-import account
 
 from .filters import GenderFilter
 from .models import User
