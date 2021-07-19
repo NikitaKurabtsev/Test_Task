@@ -20,9 +20,16 @@
     
     <p>--------</p>
     
-    <li>
-        <a href="{% url 'api_account:show_accounts' %}">all accounts api-endpoint</a><br>
-    </li>
+    
+        {% if user.is_authenticated %}
+            
+        
+        <li><a href="{% url 'api_account:acc_details' user.username %}">my account api-endpoint details</a></li><br>
+        
+        {% endif %}
+
+        <li><a href="{% url 'api_account:show_accounts' %}">all accounts api-endpoint</a></li><br>
+    
         </p>
     <body>
     {% block content %}{% endblock content %}
