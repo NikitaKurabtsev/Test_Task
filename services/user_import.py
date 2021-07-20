@@ -13,7 +13,7 @@ class UserImportService:
             gender=gender,
         )
         if is_create:
-            user.password = password
+            user.set_password(password)
             user.save()
 
         return user

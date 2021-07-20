@@ -9,11 +9,11 @@
 
         {{ user.username }} <br>
     
-        <a href="{% url 'users:logout' %}">log out</a><br>
+        <a href="{% url 'account:logout' %}">log out</a><br>
 
     {% else %}
 
-        <a href="{% url 'users:login' %}">log in</a>
+        <a href="{% url 'account:login' %}">log in</a>
 
     {% endif %}
 
