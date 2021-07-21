@@ -31,3 +31,15 @@ class UserImportService:
                 gender=user_data.get("gender", ""),
                 password=user_data.get("login", {}).get("password", "")
             )
+
+    def create_single_user(self):
+        user, is_create = User.objects.get_or_create(
+            username="newuser",
+            first_name="Alex",
+            last_name="Woods"
+        )
+        if is_create:
+            user.set_password('12345')
+            user.save()
+
+        return user
