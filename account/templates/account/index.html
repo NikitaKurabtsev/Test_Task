@@ -8,8 +8,9 @@
     </form>
     {% for user in data_objects %}
     <li>
-    {{ user.username }} 
-    {{ user.gender }}
+    {{ user.username }} --
+    {{ user.gender }} --
+    {{ user.email }} 
     </li>
 {% endfor %}
 {% endblock content %}

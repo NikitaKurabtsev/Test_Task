@@ -5,12 +5,14 @@ from account.models import User
 
 class UserImportService:
 
-    def save_user(self, username, first_name, last_name, gender, password, **kwargs):
+    def save_user(self, username, first_name, 
+                  last_name, gender, password, email, **kwargs):
         user, is_create = User.objects.get_or_create(
             username=username,
             first_name=first_name,
             last_name=last_name,
             gender=gender,
+            email=email,
         )
         if is_create:
             user.set_password(password)
@@ -29,14 +31,16 @@ class UserImportService:
                 first_name=user_data.get("name", {}).get("first", ""),
                 last_name=user_data.get("name", {}).get("last", ""),
                 gender=user_data.get("gender", ""),
-                password=user_data.get("login", {}).get("password", "")
+                password=user_data.get("login", {}).get("password", ""),
+                email=user_data.get("email", ""),
             )
 
     def create_single_user(self):
         user, is_create = User.objects.get_or_create(
             username="newuser",
             first_name="Alex",
-            last_name="Woods"
+            last_name="Woods",
+            email="hello@gmail.com"
         )
         if is_create:
             user.set_password('12345')

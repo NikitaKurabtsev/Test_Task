@@ -3,6 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 
 from .serializers import AccountSerializer, AccountDetailSerializer
@@ -39,15 +41,5 @@ class AccountDetailAPI(APIView):
         return Response(serializer.data)
 
 
-# class AccountDetailAPI(APIView):
-#
-#     def get(self, request, username):
-#         if request.user.is_authenticated and request.user.is_superuser:
-#             account = User.objects.get(username=username)
-#             serializer = AccountDetailSerializer(account, context={"request": request})
-#             return Response(serializer.data)
-#         elif request.user.is_authenticated and request.user.username == username:
-#             serializer = AccountDetailSerializer(request.user, context={"request": request})
-#             return Response(serializer.data)
-#         else:
-#             raise exceptions.NotAuthenticated()
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    pass
