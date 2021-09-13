@@ -1,10 +1,10 @@
+from copy import Error
 from rest_framework import exceptions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter
 from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
+from django.contrib.auth import authenticate 
 
 
 from .serializers import AccountSerializer, AccountDetailSerializer
@@ -41,5 +41,14 @@ class AccountDetailAPI(APIView):
         return Response(serializer.data)
 
 
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    pass
+class AuthenticateAPI(APIView):
+    
+    def authenticate(self, request, email, password):
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise Error
+        if user is not None and user.check_password(password):
+            return True
+            
+        
