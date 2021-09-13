@@ -22,4 +22,4 @@ class Contact(models.Model):
     )
 
     def __str__(self) -> str:
-        return f"{self.name} {self.email} {self.comment}[:15]"
+        return f"{self.name} {self.email} {self.comment[:15]}"
