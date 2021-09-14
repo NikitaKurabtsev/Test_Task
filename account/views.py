@@ -1,9 +1,12 @@
-from account.forms import ContactForm
-from django.shortcuts import redirect, render
+from django.shortcuts import render
+from django.core.mail import mail_managers, send_mail, BadHeaderError
+from django.conf import settings
+from django.http import HttpResponse
 
 
 from .filters import GenderFilter
-from .models import User, Contact
+from .models import User
+from account.forms import ContactForm
 
 
 def index(request):
@@ -15,9 +18,22 @@ def index(request):
 
 
 def contact_form(request):
-    form = ContactForm(request.POST or None)
+    form = ContactForm(request.POST or None, request.FILES or None)
     if form.is_valid():
+        subject = f'Message from {form.cleaned_data["name"]}'
+        message = form.cleaned_data["comment"]
+        sender = form.cleaned_data["email"]
+        manager_email = settings.MANAGERS
         form.save()
-        return redirect
-
+        try:
+            mail_managers(subject, message)
+            send_mail(
+                subject = "Fitelio",
+                message = "дякуємо, ваше резюме було прийнято",
+                from_email = manager_email,
+                recipient_list = [sender]
+            )
+        except BadHeaderError:
+            return HttpResponse("Invalid header")
+        return HttpResponse("Thank you")
     return render(request, "contact/contact_form.html", {"form": form})

@@ -7,10 +7,10 @@
 </head>
 <div class="form-group">
 <body>
-    <form action="{% url 'account:contact' %}" method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Submit" />
+        <button type="submit">Send</button>
     </form>
 </div>
 </body>
