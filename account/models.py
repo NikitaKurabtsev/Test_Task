@@ -11,14 +11,14 @@ class User(AbstractUser):
 
 
 class Contact(models.Model):
-    name = models.CharField(max_length=50, verbose_name="ім'я", help_text="напишіть ваше ім'я")
-    email = models.EmailField(max_length=50)
-    comment = models.TextField(max_length=150, verbose_name="коментар", help_text="залиште коментар")
+    name = models.CharField(max_length=50, verbose_name="ім'я")
+    email = models.EmailField(max_length=50, verbose_name="пошта")
+    comment = models.TextField(max_length=150, verbose_name="коментар")
     file = models.FileField(
         upload_to='',
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc"])],
         verbose_name="файл",
-        help_text="завантажте pdf, або doc документ"
+        help_text="завантажте pdf або doc документ"
     )
 
     def __str__(self) -> str:
