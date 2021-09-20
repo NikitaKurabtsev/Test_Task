@@ -140,7 +140,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-MANAGERS = [('nick3500hunna@gmail.com', 'nick3500hunna@gmail.com')]
+MANAGERS = [('Nick', 'nick3500hunna@gmail.com')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
