@@ -17,7 +17,7 @@ def _upload_file_cv(obj, file: str):
         file_name = f"{_file}-{uuid.uuid4()}.{_ext}"
     else:
         file_name = f"{uuid.uuid4()}"
-    return f"cv/{now}/{file_name}"
+    return f"cv/{obj.name}/{now}/{file_name}"
 
 
 class User(AbstractUser):
@@ -28,14 +28,14 @@ class User(AbstractUser):
 
 
 class Contact(models.Model):
-    name = models.CharField(max_length=50, verbose_name="ім'я")
-    email = models.EmailField(max_length=50, verbose_name="пошта")
-    comment = models.TextField(max_length=150, verbose_name="коментар", blank=True, default="")
+    name = models.CharField(max_length=50, verbose_name="Ім'я")
+    email = models.EmailField(max_length=50, verbose_name="Пошта")
+    comment = models.TextField(max_length=150, verbose_name="Коментар", blank=True, default="")
     file = models.FileField(
         upload_to=_upload_file_cv,
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc"])],
-        verbose_name="файл",
-        help_text="завантажте pdf або doc документ"
+        verbose_name="Файл",
+        help_text="Завантажте pdf або doc документ"
     )
 
     def __str__(self) -> str:

@@ -9,6 +9,7 @@ django = "*"
 django-filter = "*"
 djangorestframework = "*"
 djangorestframework-simplejwt = "*"
+celery = "*"
 
 [dev-packages]
 
