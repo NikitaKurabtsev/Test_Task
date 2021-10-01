@@ -1,23 +1,25 @@
-import logging
-from django.core.mail import mail_managers, send_mail
+# import logging
+# from django.core.mail import mail_managers, send_mail
+# from .models import Contact
 
 
-log = logging.getLogger()
+# log = logging.getLogger(__name__)
+# log.setLevel(logging.INFO)
 
 
-def post_save_contact(sender, instance, created, **kwargs):
+# def post_save_contact(sender, instance, created, **kwargs):
 
-    try:
-        subject = f'Message from {instance.name}'
-        mail_managers(subject, instance.comment)
-        send_mail(
-            subject="Fitelio",
-            message="дякуємо, ваше резюме було прийнято",
-            from_email="От комп...",
-            recipient_list=instance.email
-        )
-    except Exception as error:
-        log.error(error)
+#     try:
+#         subject = f'Message from {instance.name}'
+#         mail_managers(subject, instance.comment)
+#         send_mail(
+#             subject="Fitelio",
+#             message="дякуємо, ваше резюме було прийнято",
+#             from_email="От комп...",
+#             recipient_list=instance.email
+#         )
+#     except Exception as error:
+#         log.error(error)
 
 
 # def task2(pk):

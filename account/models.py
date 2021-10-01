@@ -31,6 +31,7 @@ class Contact(models.Model):
     name = models.CharField(max_length=50, verbose_name="Ім'я")
     email = models.EmailField(max_length=50, verbose_name="Пошта")
     comment = models.TextField(max_length=150, verbose_name="Коментар", blank=True, default="")
+    is_sent = models.BooleanField(default=False)
     file = models.FileField(
         upload_to=_upload_file_cv,
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc"])],
