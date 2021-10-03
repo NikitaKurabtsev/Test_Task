@@ -33,7 +33,8 @@ def _prepare_email(pk):
             subject="Fitelio",
             message="дякуємо, ваше резюме було прийнято",
             from_email="От комп...",
-            recipient_list=(instance.email,)
+            recipient_list=[instance.email], # без параметра fail_silently=True:  not enough values to unpack (expected 2, got 1)
+            fail_silently=True
         )
         instance.is_sent = True
         instance.save()
