@@ -1,5 +1,3 @@
-from django.core.mail import mail_managers, send_mail
-
 from .models import Contact
 
 from services.email_sender import _prepare_email
