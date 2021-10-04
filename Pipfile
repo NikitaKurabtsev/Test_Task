@@ -13,6 +13,7 @@ celery = "*"
 redis = "*"
 django-celery-beat = "*"
 django-celery-results = "*"
+django-crispy-forms = "*"
 
 [dev-packages]
 

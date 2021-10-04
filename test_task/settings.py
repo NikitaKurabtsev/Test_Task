@@ -49,7 +49,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'django_celery_beat',
-    'django_celery_results'
+    'django_celery_results',
+
+    # Other
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -164,3 +167,6 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_TIMEZONE = 'Europe/Kiev'
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
+
+# BOOTSTRAP
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
