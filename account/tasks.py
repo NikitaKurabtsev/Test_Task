@@ -6,7 +6,7 @@ from celery import shared_task
 
 
 @shared_task
-def send_email():  # задача по рассписанию каждую минуту
+def send_email():
     contacts = Contact.objects.filter(is_sent=False)
     for contact in contacts:
         _prepare_email(pk=contact.pk)

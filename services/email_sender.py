@@ -16,7 +16,6 @@ log.addHandler(FH)
 
 
 def _prepare_email(pk):
-    # непосредственная отправка писем
     instance = Contact.objects.get(pk=pk)
     try:
         subject = f'Message from {instance.name}'
