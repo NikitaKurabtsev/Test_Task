@@ -1,8 +1,14 @@
-from celery import shared_task
+from django.core.mail import mail_managers, send_mail
 
-from .signals import post_save_contact
+from .models import Contact
+
+from services.email_sender import _prepare_email
+
+from celery import shared_task
 
 
 @shared_task
-def email_sender():
-    post_save_contact()
+def send_email():  # задача по рассписанию каждую минуту
+    contacts = Contact.objects.filter(is_sent=False)
+    for contact in contacts:
+        _prepare_email(pk=contact.pk)

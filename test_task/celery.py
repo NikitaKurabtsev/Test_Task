@@ -12,7 +12,7 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     'sending_async_emails': {
-        'task': 'account.tasks.email_sender',
+        'task': 'account.tasks.send_email',
         'schedule': 60.0
     }
 }
