@@ -10,6 +10,9 @@ django-filter = "*"
 djangorestframework = "*"
 djangorestframework-simplejwt = "*"
 celery = "*"
+redis = "*"
+django-celery-beat = "*"
+django-celery-results = "*"
 
 [dev-packages]
 
