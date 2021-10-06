@@ -43,6 +43,6 @@ class Contact(models.Model):
         return f"{self.name} {self.email} {self.comment[:15]}"
 
 
-@receiver(post_save, sender=Contact)
-def post_save_contact_2(sender, instance, created, **kwargs):
-    pass
+# @receiver(post_save, sender=Contact)
+# def post_save_contact_2(sender, instance, created, **kwargs):
+#     pass
