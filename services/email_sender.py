@@ -5,13 +5,13 @@ from account.models import Contact
 import logging
 
 
-logfile = 'email_errors.log'
+logfile = 'email_logs.log'
 
 log = logging.getLogger("my_log")
 log.setLevel(logging.INFO)
 FH = logging.FileHandler(logfile)
-basic_formater = logging.Formatter('%(asctime)s : [%(levelname)s] : %(message)s')
-FH.setFormatter(basic_formater)
+basic_formatter = logging.Formatter('%(asctime)s : [%(levelname)s] : %(message)s')
+FH.setFormatter(basic_formatter)
 log.addHandler(FH)
 
 
