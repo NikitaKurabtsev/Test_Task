@@ -1,34 +1,25 @@
 from django.core.mail import mail_managers, send_mail
 
-from account.models import Contact
-
 import logging
 
-
-logfile = 'email_logs.log'
-
-log = logging.getLogger("my_log")
-log.setLevel(logging.INFO)
-FH = logging.FileHandler(logfile)
-basic_formatter = logging.Formatter('%(asctime)s : [%(levelname)s] : %(message)s')
-FH.setFormatter(basic_formatter)
-log.addHandler(FH)
+logger = logging.getLogger('test_task')
 
 
-def _prepare_email(pk):
-    instance = Contact.objects.get(pk=pk)
-    try:
-        subject = f'Message from {instance.name}'
-        mail_managers(subject, instance.comment)
-        send_mail(
-            subject="Fitelio",
-            message="дякуємо, ваше резюме було прийнято",
-            from_email="От комп...",
-            recipient_list=[instance.email],
-            fail_silently=True
-        )
-        instance.is_sent = True
-        instance.save()
-        log.info("email sent successfully")
-    except Exception as error:
-        log.error(error)
+class EmailService:
+    def send_contact_email(self, instance):
+        try:
+            subject = f'Message from {instance.name}'
+            mail_managers(subject, instance.comment)
+            send_mail(
+                subject='Fitelio',
+                message='дякуємо, ваше резюме було прийнято',
+                from_email='От комп...',
+                recipient_list=[instance.email],
+                fail_silently=True
+            )
+            instance.is_sent = True
+            instance.save()
+            logger.info('email sent successfully')
+            return self
+        except Exception as error:
+            logger.error(error)

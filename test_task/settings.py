@@ -161,7 +161,7 @@ REST_FRAMEWORK = {
 }
 
 # CELERY SETTINGS
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 CELERY_TIMEZONE = 'Europe/Kiev'
@@ -170,3 +170,36 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 
 # BOOTSTRAP
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGGING = {
+    'version': 1,
+
+    'disable_existing_loggers': False,
+
+    'formatters': {
+            'Simple_Format': {
+                'format': '{levelname} {message}]',
+                'style': '{',
+            }
+    },
+
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'email_logs.log',
+            'formatter': 'Simple_Format'
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+        },
+    },
+
+    'loggers': {
+        'test_task': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+        },
+    },
+}
