@@ -32,6 +32,7 @@ class Contact(models.Model):
     email = models.EmailField(max_length=50, verbose_name="Пошта")
     comment = models.TextField(max_length=150, verbose_name="Коментар", blank=True, default="")
     is_sent = models.BooleanField(default=False)
+    new_contact = models.BooleanField(default=True)
     file = models.FileField(
         upload_to=_upload_file_cv,
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc"])],
@@ -41,8 +42,3 @@ class Contact(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name} {self.email} {self.comment[:15]}"
-
-
-# @receiver(post_save, sender=Contact)
-# def post_save_contact_2(sender, instance, created, **kwargs):
-#     pass

@@ -7,4 +7,4 @@ class ContactForm(forms.ModelForm):
 
     class Meta:
         model = Contact
-        exclude = ["is_sent"]
+        exclude = ['is_sent', 'new_contact']
