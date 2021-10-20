@@ -1,3 +1,4 @@
+import http
 from copy import Error
 from rest_framework import exceptions
 from rest_framework.views import APIView
@@ -7,8 +8,8 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate 
 
 
-from .serializers import AccountSerializer, AccountDetailSerializer
-from account.models import User
+from .serializers import AccountSerializer, AccountDetailSerializer, ContactSerializer
+from account.models import User, Contact
 
 
 class OwnOrAdmin(IsAuthenticated):
@@ -51,4 +52,24 @@ class AuthenticateAPI(APIView):
         if user is not None and user.check_password(password):
             return True
             
-        
+
+class GetContactAPI(APIView):
+
+    def get(self, request):
+        contacts = Contact.objects.all()
+        serializer = ContactSerializer(contacts, many=True)
+        return Response(serializer.data)
+
+
+class GetNewContactAPI(APIView):
+
+    def get(self, request):
+        contacts = Contact.objects.filter(new_contact=True)
+        serializer = ContactSerializer(contacts, many=True)
+
+        def post_processing_refresh():
+            for contact in contacts:
+                contact.new_contact = False
+                contact.save()
+
+        return Response(serializer.data, post_processing_refresh())
