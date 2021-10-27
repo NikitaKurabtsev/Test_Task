@@ -1,6 +1,7 @@
 from django.core.mail import mail_managers, send_mail
 
 from .models import Contact
+
 # import logging
 #
 #

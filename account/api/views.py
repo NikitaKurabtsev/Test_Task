@@ -1,15 +1,16 @@
-import http
 from copy import Error
-from rest_framework import exceptions
-from rest_framework.views import APIView
-from rest_framework.response import Response
+
+from rest_framework import exceptions, viewsets
+from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth import authenticate 
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
+from account.models import Contact, Record, User
 
-from .serializers import AccountSerializer, AccountDetailSerializer, ContactSerializer
-from account.models import User, Contact
+from .serializers import (AccountDetailSerializer, AccountSerializer,
+                          ContactSerializer)
 
 
 class OwnOrAdmin(IsAuthenticated):
@@ -53,23 +54,47 @@ class AuthenticateAPI(APIView):
             return True
             
 
-class GetContactAPI(APIView):
+# class GetContactAPI(APIView):
+#
+#     def get(self, request):
+#         contacts = Contact.objects.all()
+#         serializer = ContactSerializer(contacts, many=True)
+#         return Response(serializer.data)
+#
+#
+# class GetNewContactAPI(APIView):
+#
+#     def get(self, request):
+#         contacts = Contact.objects.filter(new_contact=True)
+#         serializer = ContactSerializer(contacts, many=True)
+#
+#         def post_processing_refresh():
+#             for contact in contacts:
+#                 contact.new_contact = False
+#                 contact.save()
+#
+#         return Response(serializer.data, post_processing_refresh())
 
-    def get(self, request):
-        contacts = Contact.objects.all()
-        serializer = ContactSerializer(contacts, many=True)
+
+class ContactViewSet(viewsets.ModelViewSet):
+    """
+    Show all contacts and only new contacts after refresh.
+    """
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+    permission_classes = [IsAuthenticated]
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
-
-class GetNewContactAPI(APIView):
-
-    def get(self, request):
-        contacts = Contact.objects.filter(new_contact=True)
-        serializer = ContactSerializer(contacts, many=True)
-
-        def post_processing_refresh():
-            for contact in contacts:
-                contact.new_contact = False
-                contact.save()
-
-        return Response(serializer.data, post_processing_refresh())
+    @action(detail=True)
+    def new_contacts(self, request, pk=None):
+        user = self.get_object()
+        obj, created = Record.objects.get_or_create(record_user=request.user)
+        queryset = Contact.objects.filter(created_date__gt=obj.update)
+        serializer = self.get_serializer(queryset, many=True)
+        serializer_data = serializer.data
+        obj.save()
+        return Response(serializer_data)

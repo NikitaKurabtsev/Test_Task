@@ -1,9 +1,10 @@
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
+
+from account.forms import ContactForm
 
 from .filters import GenderFilter
 from .models import User
-from account.forms import ContactForm
 
 
 def index(request):
