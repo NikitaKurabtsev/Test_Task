@@ -1,11 +1,9 @@
 import uuid
 
 from django.contrib.auth.models import AbstractUser
-from django.db import models
 from django.core.validators import FileExtensionValidator
-from django.dispatch import receiver
+from django.db import models
 from django.utils import timezone
-from django.db.models.signals import post_save
 
 
 def _upload_file_cv(obj, file: str):
@@ -31,8 +29,9 @@ class Contact(models.Model):
     name = models.CharField(max_length=50, verbose_name="Ім'я")
     email = models.EmailField(max_length=50, verbose_name="Пошта")
     comment = models.TextField(max_length=150, verbose_name="Коментар", blank=True, default="")
-    is_sent = models.BooleanField(default=False)
+    is_sent = models.BooleanField(default=False, verbose_name="відгук відправлений")
     new_contact = models.BooleanField(default=True)
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="дата створення")
     file = models.FileField(
         upload_to=_upload_file_cv,
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc"])],
@@ -42,3 +41,12 @@ class Contact(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name} {self.email} {self.comment[:15]}"
+
+
+class Record(models.Model):
+    """Table for recording user refresh api contacts"""
+    record_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="record_user")
+    update = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f"{self.record_user} {self.update}"

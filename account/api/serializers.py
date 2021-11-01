@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from account.models import User, Contact
+from account.models import Contact, User
 
 
 class AccountSerializer(serializers.ModelSerializer):
