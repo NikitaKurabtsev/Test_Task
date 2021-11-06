@@ -1,9 +1,15 @@
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+
+from django.utils import timezone
 import uuid
 
-from django.contrib.auth.models import AbstractUser
-from django.core.validators import FileExtensionValidator
-from django.db import models
-from django.utils import timezone
+
+class User(AbstractUser):
+    gender = models.CharField(max_length=20, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} ({self.email})"
 
 
 def _upload_file_cv(obj, file: str):
@@ -16,37 +22,3 @@ def _upload_file_cv(obj, file: str):
     else:
         file_name = f"{uuid.uuid4()}"
     return f"cv/{obj.name}/{now}/{file_name}"
-
-
-class User(AbstractUser):
-    gender = models.CharField(max_length=20, null=True, blank=True)
-
-    def __str__(self):
-        return f"{self.first_name} {self.last_name} ({self.email})"
-
-
-class Contact(models.Model):
-    name = models.CharField(max_length=50, verbose_name="Ім'я")
-    email = models.EmailField(max_length=50, verbose_name="Пошта")
-    comment = models.TextField(max_length=150, verbose_name="Коментар", blank=True, default="")
-    is_sent = models.BooleanField(default=False, verbose_name="відгук відправлений")
-    new_contact = models.BooleanField(default=True)
-    created_date = models.DateTimeField(auto_now_add=True, verbose_name="дата створення")
-    file = models.FileField(
-        upload_to=_upload_file_cv,
-        validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc"])],
-        verbose_name="Файл",
-        help_text="Завантажте pdf або doc документ"
-    )
-
-    def __str__(self) -> str:
-        return f"{self.name} {self.email} {self.comment[:15]}"
-
-
-class Record(models.Model):
-    """Table for recording user refresh api contacts"""
-    record_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="record_user")
-    update = models.DateTimeField(auto_now=True)
-
-    def __str__(self) -> str:
-        return f"{self.record_user} {self.update}"

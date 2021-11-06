@@ -36,6 +36,7 @@ LOGOUT_REDIRECT_URL = '/'
 INSTALLED_APPS = [
     # My apps
     'account',
+    'contacts',
     
     'django_filters',
 
