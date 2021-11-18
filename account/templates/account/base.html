@@ -27,6 +27,8 @@
         <li><a href="{% url 'account:api:acc_details' user.username %}">my account api-endpoint details</a></li><br>
 
         <li><a href="{% url 'contact:api:contacts-list' %}">all contacts</a></li><br>
+
+        <li><a href="{% url 'contact:api:contacts-new-contacts' request.user.pk %}">new contacts</a></li><br>
         
         {% endif %}
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'account/style.css' %}">
+  <title>API endpoints</title>
+</head>
+    <body>
+      <header>
+        <div>
+          {% if request.user.is_authenticated %}
+
+            {% include "account/includes/logged_navbar.html" %}
+
+          {% else %}
+
+            {% include "account/includes/anonymous_navbar.html" %}
+
+          {% endif %}
+       	  <h1>API ENDPOINTS</h1>
+       	  <div class="card">
+      	     <p>This web application was build to demonstrate my knowledge of technologies. Frontend was build with HTML and CSS. Backend with Python and Django. If you register, you will see different API endpoints based on Django REST framework, with users, contacts, your account information API endpoint and API endpoint with only new contacts. When you will refresh the page, you won’t be seeing contacts, until somebody will fill the form. Also, app has contact form which sends feedback to client who fill the form, using Celery.</p>
+      	  </div>
+        </div>
+      </header>
+        <section>
+        	
+        </section>
+    </body>
+</html>
