@@ -20,16 +20,16 @@ def _upload_file_cv(obj, file: str):
 
 
 class Contact(models.Model):
-    name = models.CharField(max_length=50, verbose_name="Ім'я")
-    email = models.EmailField(max_length=50, verbose_name="Пошта")
-    comment = models.TextField(max_length=150, verbose_name="Коментар", blank=True, default="")
-    is_sent = models.BooleanField(default=False, verbose_name="відгук відправлений")
-    created_date = models.DateTimeField(auto_now_add=True, verbose_name="дата створення")
+    name = models.CharField(max_length=50, verbose_name="Name")
+    email = models.EmailField(max_length=50, verbose_name="Email")
+    comment = models.TextField(max_length=150, verbose_name="Comment", blank=True, default="")
+    is_sent = models.BooleanField(default=False, verbose_name="feedback is sent")
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="create date")
     file = models.FileField(
         upload_to=_upload_file_cv,
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc"])],
-        verbose_name="Файл",
-        help_text="Завантажте pdf або doc документ"
+        verbose_name="File",
+        help_text="load pdf or doc document"
     )
 
     def __str__(self) -> str:
@@ -40,7 +40,7 @@ class Record(models.Model):
     """Table for recording user refresh api contacts"""
     record_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="record_user",
                                     verbose_name="користувач")
-    update = models.DateTimeField(auto_now=True, verbose_name="дата останнього збору")
+    update = models.DateTimeField(auto_now=True, verbose_name="last query date")
 
     def __str__(self) -> str:
         return f"{self.record_user} {self.update}"

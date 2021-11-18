@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'account/style.css' %}">
+  <title>API endpoints</title>
+
+</head>
+    <body>
+      <header>
+        <div>
+          {% if request.user.is_authenticated %}
+
+            {% include "account/includes/logged_navbar.html" %}
+
+          {% else %}
+
+            {% include "account/includes/anonymous_navbar.html" %}
+
+          {% endif %}
+       	  <h1>
+
+            <h3><a href="{% url 'account:api:acc_details' user.username %}">my account api-endpoint details</a></h3><br>
+            <h3><a href="{% url 'contact:api:contacts-list' %}">all contacts</a></h3><br>
+            <h3><a href="{% url 'contact:api:contacts-new-contacts' request.user.pk %}">new contacts</a></h3><br>
+            <h3><a href="{% url 'account:api:show_accounts' %}">all accounts api-endpoint</a></h3><br>
+
+          </h1>
+
+        </div>
+      </header>
+        <section>
+
+        </section>
+    </body>
+</html>

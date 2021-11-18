@@ -1,0 +1,164 @@
+body, h1, p, .card, header, li, a {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Courier New', monospace;
+}
+
+header {
+	width: 100vw;
+	height: 100vh;
+	background-color: #eee;
+	background-image: url(john-towner-JgOeRuGD_Y4-unsplash.jpg);
+	background-size: cover;
+	background-position: center;
+	text-align: center;
+
+}
+
+.nav-links li, a {
+	font-family: 'Courier New', monospace;
+	font-size: 26px;
+	font-weight: 500;
+	color: white;
+	text-decoration: none;
+	align-items: center;
+	text-transform: uppercase;
+}
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 50px 20px 10px;
+	text-shadow: 2px 2px 5px #000000;
+	width: 50vw;
+	height: 7vh;
+	margin-left: 500px;
+	margin: auto;
+}
+
+.nav-links {
+	list-style: none;
+}
+
+.nav-links li {
+	display: inline-block;
+	padding: 0px 20px;
+}
+
+h1 {
+	font-size: 140px;
+	color: white;
+	font-weight: 500;
+	padding-top: 200px;
+	text-shadow: 6px 6px 10px #000000;
+	text-align: center;
+}
+
+p {
+	font-size: 16px;
+	color: white;
+	font-weight: normal;
+}
+
+div {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .1);
+	
+}
+
+.card {
+	width: 54.5vw;
+	height: 10vh;
+	margin-left: 410px;
+	text-align: left;
+	background-color: #505f7a;
+	border-radius: 10px;
+	padding: 20px;
+	margin-top: 0;
+	word-wrap: break-word;
+	min-height: 100px;
+}
+
+
+ul {
+	/*background-color: white;*/
+	margin: auto;
+}
+
+.nav-links li {
+
+}
+
+a {
+	transition: color .4s, font-size .4s;
+}
+
+a:hover {
+	/* color: #dd655d; */
+	/* font-size: 34px; */
+	text-shadow: 3px 3px 3px black;
+}
+
+
+p {
+	transition: color .4s, font-size 1s;
+}
+
+/*p:hover {
+	font-size: 34px;
+}
+*/
+.card {
+	-webkit-transition: background-color .4s linear;
+	transition: 1s;
+	transition-delay: 0.1s;
+}
+
+.card:hover {
+	background-color: #68243c;
+    -webkit-transition: background-color 10s linear;
+    transition: 1s;
+    height: 415px;
+    transition-timing-function: ease;
+}
+
+.card:hover p {
+	font-size: 34px;
+	transition: 0.5;
+
+}
+
+.footer {
+  height: 300px;
+  background-color: black;
+  display: flex;
+}
+
+a {
+  display: inline-block;
+  position: relative;
+  color: white;
+}
+
+a:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transform-origin: bottom right;
+  transition: transform 0.30s ease-out;
+}
+
+a:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
